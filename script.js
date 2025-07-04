@@ -1,4 +1,4 @@
-document.getElementById('loan-form').addEventListener('submit', function(e) {
+document.getElementById('loan-form').addEventListener('submit', function (e) {
     e.preventDefault();
 
     const principal = parseFloat(document.getElementById('loan-amount').value);
@@ -17,10 +17,10 @@ document.getElementById('loan-form').addEventListener('submit', function(e) {
             balance -= principalPayment;
             schedule.push({
                 month,
-                monthlyPayment: monthlyPayment.toFixed(2),
-                principalPayment: principalPayment.toFixed(2),
-                interestPayment: interestPayment.toFixed(2),
-                balance: balance.toFixed(2)
+                monthlyPayment: Math.round(monthlyPayment),
+                principalPayment: Math.round(principalPayment),
+                interestPayment: Math.round(interestPayment),
+                balance: Math.round(balance)
             });
         }
 
