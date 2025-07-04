@@ -22,7 +22,25 @@
             <button type="submit">Calculate</button>
         </form>
 
-        <div id="schedule"></div>
+        <div id="schedule">
+            <div id="total-interest-info">
+                <p>Total Interest for the Tenure: ₹<span id="total-interest"></span></p>
+            </div>
+            <table id="amortization-table">
+                <thead>
+                    <tr>
+                        <th>Month</th>
+                        <th>EMI (₹)</th>
+                        <th>Interest Paid (₹)</th>
+                        <th>Principal Paid (₹)</th>
+                        <th>Remaining Balance (₹)</th>
+                        <th>Total Interest Paid (₹)</th>
+                        <th>Remaining Interest (₹)</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            </table>
+        </div>
     </div>
 
     <script src="script.js"></script>
