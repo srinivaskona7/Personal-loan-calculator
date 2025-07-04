@@ -40,7 +40,7 @@ document.getElementById('loan-form').addEventListener('submit', function (e) {
 
     // Show results
     document.getElementById('results').style.display = "block";
-    document.getElementById('total-interest').innerText = Math.ceil(totalInterestForTenure);
+    document.getElementById('total-interest').innerText = "₹" + Math.ceil(totalInterestForTenure).toLocaleString();
 
     // Loan Details
     document.getElementById('loan-amount-display').innerText = principal.toLocaleString();
@@ -89,50 +89,31 @@ document.getElementById('loan-form').addEventListener('submit', function (e) {
     });
     document.querySelector('#amortization-table tbody').innerHTML = scheduleHTML;
 
-    // Breakdown for first two months
+    // Breakdown for first three months
     const firstMonth = schedule[0];
     const secondMonth = schedule[1];
+    const thirdMonth = schedule[2];
     document.getElementById('breakdown-months').style.display = "block";
     document.getElementById('breakdown-months').innerHTML = `
-        <h3>📆 First Two Months Detailed Calculation</h3>
+        <h3 style="margin-bottom:7px;">📆 Month-wise EMI Calculation Breakdown</h3>
         <div class="emi-breakdown">
             <strong>Month 1:</strong><br>
             Principal at start: ₹${principal.toLocaleString()}<br>
-            Interest = ₹${principal.toLocaleString()} × ${r.toFixed(7)} = ₹${firstMonth.interestPayment}<br>
-            Principal paid = EMI − Interest = ₹${firstMonth.monthlyPayment} − ₹${firstMonth.interestPayment} = ₹${firstMonth.principalPayment}<br>
-            Remaining balance = ₹${principal.toLocaleString()} − ₹${firstMonth.principalPayment} = ₹${firstMonth.balance}<br>
+            Interest = ₹${principal.toLocaleString()} × ${r.toFixed(7)} = <b>₹${firstMonth.interestPayment}</b><br>
+            Principal paid = EMI − Interest = ₹${firstMonth.monthlyPayment} − ₹${firstMonth.interestPayment} = <b>₹${firstMonth.principalPayment}</b><br>
+            Remaining balance = ₹${principal.toLocaleString()} − ₹${firstMonth.principalPayment} = <b>₹${firstMonth.balance}</b><br>
             <br>
             <strong>Month 2:</strong><br>
             Principal at start: ₹${firstMonth.balance}<br>
-            Interest = ₹${firstMonth.balance} × ${r.toFixed(7)} = ₹${secondMonth.interestPayment}<br>
-            Principal paid = EMI − Interest = ₹${secondMonth.monthlyPayment} − ₹${secondMonth.interestPayment} = ₹${secondMonth.principalPayment}<br>
-            Remaining balance = ₹${firstMonth.balance} − ₹${secondMonth.principalPayment} = ₹${secondMonth.balance}
+            Interest = ₹${firstMonth.balance} × ${r.toFixed(7)} = <b>₹${secondMonth.interestPayment}</b><br>
+            Principal paid = EMI − Interest = ₹${secondMonth.monthlyPayment} − ₹${secondMonth.interestPayment} = <b>₹${secondMonth.principalPayment}</b><br>
+            Remaining balance = ₹${firstMonth.balance} − ₹${secondMonth.principalPayment} = <b>₹${secondMonth.balance}</b><br>
+            <br>
+            <strong>Month 3:</strong><br>
+            Principal at start: ₹${secondMonth.balance}<br>
+            Interest = ₹${secondMonth.balance} × ${r.toFixed(7)} = <b>₹${thirdMonth.interestPayment}</b><br>
+            Principal paid = EMI − Interest = ₹${thirdMonth.monthlyPayment} − ₹${thirdMonth.interestPayment} = <b>₹${thirdMonth.principalPayment}</b><br>
+            Remaining balance = ₹${secondMonth.balance} − ₹${thirdMonth.principalPayment} = <b>₹${thirdMonth.balance}</b>
         </div>
     `;
-
-    // Loan Calculation Example at bottom
-    document.getElementById('loan-amount-1').innerText = principal.toLocaleString();
-    document.getElementById('interest-rate-1').innerText = annualInterest;
-    document.getElementById('loan-term-1').innerText = years;
-    document.getElementById('loan-term-1-months').innerText = n;
-    document.getElementById('emi-1').innerText = Math.ceil(EMI);
-    document.getElementById('r-1').innerText = r.toFixed(7);
-    document.getElementById('formula-mathjax-1').innerHTML = `
-        <div style="font-size:1.08em;margin:10px 0 14px 0;">
-        \\[
-        EMI = P \\times r \\times \\frac{(1 + r)^n}{(1 + r)^n - 1}
-        \\]
-        <br>
-        Where:<br>
-        \\( P = ₹${principal.toLocaleString()} \\), &nbsp;
-        \\( r = ${r.toFixed(7)} \\), &nbsp;
-        \\( n = ${n} \\)
-        <br><br>
-        Substituting values:<br>
-        \\[
-        EMI = ₹${principal.toLocaleString()} \\times ${r.toFixed(7)} \\times \\frac{(1 + ${r.toFixed(7)})^{${n}}}{(1 + ${r.toFixed(7)})^{${n}} - 1}
-        \\]
-        </div>
-    `;
-    if (window.MathJax && window.MathJax.typeset) MathJax.typeset();
 });

@@ -3,18 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <title>Latha's Field Personal Loan Calculation</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles.css">
-    <!-- MathJax for creative math formatting -->
+    <!-- MathJax for EMI formula rendering -->
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async
-      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
-    </script>
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&family=Roboto+Mono:wght@400&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="container">
         <h1>Latha's Field Personal Loan Calculation</h1>
-        <form id="loan-form">
+        <form id="loan-form" autocomplete="off">
             <label for="loan-amount">Loan Amount in Lakhs:</label>
             <input type="number" id="loan-amount" step="0.5" required placeholder="e.g. 20 or 20.5">
 
@@ -27,27 +27,29 @@
             <button type="submit">Calculate</button>
         </form>
 
-        <!-- Results below input form -->
+        <!-- Results appear below input form -->
         <div id="results" style="display:none;">
             <div id="schedule">
                 <div id="total-interest-info">
                     <p>Total Interest for the Tenure: ₹<span id="total-interest"></span></p>
                 </div>
-                <table id="amortization-table">
-                    <thead>
-                        <tr>
-                            <th>Month</th>
-                            <th>EMI (₹)</th>
-                            <th>Interest Paid (₹)</th>
-                            <th>Principal Paid (₹)</th>
-                            <th>Total Principal Paid (₹)</th>
-                            <th>Total Interest Paid (₹)</th>
-                            <th>Remaining Interest (₹)</th>
-                            <th>Remaining Balance (₹)</th>
-                        </tr>
-                    </thead>
-                    <tbody></tbody>
-                </table>
+                <div class="responsive-table">
+                    <table id="amortization-table">
+                        <thead>
+                            <tr>
+                                <th>Month</th>
+                                <th>EMI (₹)</th>
+                                <th>Interest Paid (₹)</th>
+                                <th>Principal Paid (₹)</th>
+                                <th>Total Principal Paid (₹)</th>
+                                <th>Total Interest Paid (₹)</th>
+                                <th>Remaining Interest (₹)</th>
+                                <th>Remaining Balance (₹)</th>
+                            </tr>
+                        </thead>
+                        <tbody></tbody>
+                    </table>
+                </div>
             </div>
 
             <div id="loan-details">
@@ -62,24 +64,11 @@
                 <h3>Formula to Calculate EMI:</h3>
                 <div class="formula-container">
                     <div id="formula-mathjax"></div>
-                    <p><strong>Final EMI:</strong> ₹<span id="emi-display"></span></p>
+                    <p style="font-size:1.08em;"><strong>Final EMI:</strong> ₹<span id="emi-display"></span></p>
                 </div>
             </div>
 
             <div id="breakdown-months"></div>
-
-            <div id="calculation-summary">
-                <h3>Loan Calculation Example</h3>
-                <div id="loan-calculation-1">
-                    <h4>Loan Example</h4>
-                    <p><strong>Loan Amount (Principal):</strong> ₹<span id="loan-amount-1"></span></p>
-                    <p><strong>Annual Interest Rate:</strong> <span id="interest-rate-1"></span>%</p>
-                    <p><strong>Loan Term:</strong> <span id="loan-term-1"></span> years (<span id="loan-term-1-months"></span> months)</p>
-                    <p><strong>Monthly Interest Rate (r):</strong> <span id="r-1"></span></p>
-                    <div class="mathjax" id="formula-mathjax-1"></div>
-                    <p><strong>EMI ≈ ₹</strong><span id="emi-1"></span></p>
-                </div>
-            </div>
         </div>
     </div>
     <script src="script.js"></script>
