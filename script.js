@@ -19,6 +19,7 @@ document.getElementById('loan-form').addEventListener('submit', function (e) {
     let balance = principal;
     let totalInterestPaid = 0;
     let remainingInterest = totalInterestForTenure;
+    let totalPrincipalPaid = 0;
     let schedule = [];
 
     for (let month = 1; month <= n; month++) {
@@ -27,20 +28,35 @@ document.getElementById('loan-form').addEventListener('submit', function (e) {
         balance -= principalPayment;
         totalInterestPaid += interestPayment;
         remainingInterest = totalInterestForTenure - totalInterestPaid;
+        totalPrincipalPaid += principalPayment;
 
         schedule.push({
             month,
-            monthlyPayment: EMI.toFixed(2),
-            interestPayment: interestPayment.toFixed(2),
-            principalPayment: principalPayment.toFixed(2),
-            balance: balance.toFixed(2),
-            totalInterestPaid: totalInterestPaid.toFixed(2),
-            remainingInterest: remainingInterest.toFixed(2),
+            monthlyPayment: Math.ceil(EMI),
+            interestPayment: Math.ceil(interestPayment),
+            principalPayment: Math.ceil(principalPayment),
+            totalPrincipalPaid: Math.ceil(totalPrincipalPaid),
+            balance: Math.ceil(balance),
+            totalInterestPaid: Math.ceil(totalInterestPaid),
+            remainingInterest: Math.ceil(remainingInterest),
         });
     }
 
-    // Display total interest
-    document.getElementById('total-interest').innerText = totalInterestForTenure.toFixed(2);
+    // Show loan details and amortization schedule
+    document.getElementById('total-interest').innerText = Math.ceil(totalInterestForTenure);
+
+    // Display loan details
+    document.getElementById('loan-amount-display').innerText = principal;
+    document.getElementById('interest-rate-display').innerText = annualInterest;
+    document.getElementById('loan-term-display').innerText = years;
+    document.getElementById('monthly-interest-rate-display').innerText = r.toFixed(7);
+    document.getElementById('total-payments-display').innerText = n;
+    document.getElementById('emi-display').innerText = Math.ceil(EMI);
+
+    // Hide the form and show the results
+    document.getElementById('loan-form').style.display = "none";
+    document.getElementById('schedule').style.display = "block";
+    document.getElementById('loan-details').style.display = "block";
 
     // Generate table for amortization schedule
     let scheduleHTML = '';
@@ -51,6 +67,7 @@ document.getElementById('loan-form').addEventListener('submit', function (e) {
                 <td>${payment.monthlyPayment}</td>
                 <td>${payment.interestPayment}</td>
                 <td>${payment.principalPayment}</td>
+                <td>${payment.totalPrincipalPaid}</td>
                 <td>${payment.balance}</td>
                 <td>${payment.totalInterestPaid}</td>
                 <td>${payment.remainingInterest}</td>

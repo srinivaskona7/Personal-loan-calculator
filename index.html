@@ -3,26 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Loan Amortization Calculator</title>
+    <title>Latha's Field Personal Loan Calculation</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <div class="container">
-        <h1>Loan Amortization Calculator</h1>
+        <h1>Latha's Field Personal Loan Calculation</h1>
         <form id="loan-form">
             <label for="loan-amount">Loan Amount (₹):</label>
-            <input type="number" id="loan-amount" required>
+            <input type="number" id="loan-amount" required placeholder="Enter loan amount">
 
             <label for="interest-rate">Annual Interest Rate (%):</label>
-            <input type="number" id="interest-rate" step="0.01" required>
+            <input type="number" id="interest-rate" step="0.01" required placeholder="Enter interest rate">
 
             <label for="loan-term">Loan Term (Years):</label>
-            <input type="number" id="loan-term" required>
+            <input type="number" id="loan-term" required placeholder="Enter loan term in years">
 
             <button type="submit">Calculate</button>
         </form>
 
-        <div id="schedule">
+        <div id="schedule" style="display:none;">
             <div id="total-interest-info">
                 <p>Total Interest for the Tenure: ₹<span id="total-interest"></span></p>
             </div>
@@ -33,6 +33,7 @@
                         <th>EMI (₹)</th>
                         <th>Interest Paid (₹)</th>
                         <th>Principal Paid (₹)</th>
+                        <th>Total Principal Paid (₹)</th>
                         <th>Remaining Balance (₹)</th>
                         <th>Total Interest Paid (₹)</th>
                         <th>Remaining Interest (₹)</th>
@@ -40,6 +41,25 @@
                 </thead>
                 <tbody></tbody>
             </table>
+        </div>
+
+        <div id="loan-details" style="display:none;">
+            <h2>Loan Details</h2>
+            <p><strong>Loan Amount (Principal):</strong> ₹<span id="loan-amount-display"></span></p>
+            <p><strong>Annual Interest Rate:</strong> <span id="interest-rate-display"></span>%</p>
+            <p><strong>Loan Term:</strong> <span id="loan-term-display"></span> years</p>
+            <p><strong>Monthly Interest Rate (r):</strong> <span id="monthly-interest-rate-display"></span></p>
+            <p><strong>Total Number of Payments (n):</strong> <span id="total-payments-display"></span> months</p>
+            
+            <h3>Formula to Calculate EMI:</h3>
+            <pre>
+EMI = P × r × (1 + r)^n / ((1 + r)^n - 1)
+Where:
+P = ₹20,00,000 (Principal)
+r = 0.0088333 (Monthly Interest Rate)
+n = 24 months
+            </pre>
+            <p><strong>EMI ≈ ₹</strong><span id="emi-display"></span></p>
         </div>
     </div>
 
