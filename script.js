@@ -54,9 +54,9 @@ document.getElementById('loan-form').addEventListener('submit', function (e) {
     document.getElementById('emi-display').innerText = Math.ceil(EMI);
 
     // Hide the form and show the results
-    document.getElementById('loan-form').style.display = "none";
     document.getElementById('schedule').style.display = "block";
     document.getElementById('loan-details').style.display = "block";
+    document.getElementById('calculation-summary').style.display = "block";
 
     // Generate table for amortization schedule
     let scheduleHTML = '';
@@ -68,13 +68,26 @@ document.getElementById('loan-form').addEventListener('submit', function (e) {
                 <td>${payment.interestPayment}</td>
                 <td>${payment.principalPayment}</td>
                 <td>${payment.totalPrincipalPaid}</td>
-                <td>${payment.balance}</td>
                 <td>${payment.totalInterestPaid}</td>
                 <td>${payment.remainingInterest}</td>
+                <td>${payment.balance}</td>
             </tr>
         `;
     });
-
-    // Update table body
     document.querySelector('#amortization-table tbody').innerHTML = scheduleHTML;
+
+    // Display loan calculation summaries for two loans
+    document.getElementById('loan-amount-1').innerText = principal;
+    document.getElementById('interest-rate-1').innerText = annualInterest;
+    document.getElementById('loan-term-1').innerText = years;
+    document.getElementById('emi-1').innerText = Math.ceil(EMI);
+
+    // Repeat for second loan example (modify if needed)
+    document.getElementById('loan-amount-2').innerText = principal;
+    document.getElementById('interest-rate-2').innerText = annualInterest;
+    document.getElementById('loan-term-2').innerText = years;
+    document.getElementById('emi-2').innerText = Math.ceil(EMI);
+
+    // Re-typeset math equations with MathJax
+    if (window.MathJax && window.MathJax.typeset) { MathJax.typeset(); }
 });

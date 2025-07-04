@@ -5,6 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Latha's Field Personal Loan Calculation</title>
     <link rel="stylesheet" href="styles.css">
+
+    <!-- MathJax for rendering math formulas -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async
+      src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+    </script>
+
+    <!-- Google Font for UI -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500&family=Roboto+Mono:wght@400&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="container">
@@ -34,9 +43,9 @@
                         <th>Interest Paid (₹)</th>
                         <th>Principal Paid (₹)</th>
                         <th>Total Principal Paid (₹)</th>
-                        <th>Remaining Balance (₹)</th>
                         <th>Total Interest Paid (₹)</th>
                         <th>Remaining Interest (₹)</th>
+                        <th>Remaining Balance (₹)</th>
                     </tr>
                 </thead>
                 <tbody></tbody>
@@ -50,16 +59,74 @@
             <p><strong>Loan Term:</strong> <span id="loan-term-display"></span> years</p>
             <p><strong>Monthly Interest Rate (r):</strong> <span id="monthly-interest-rate-display"></span></p>
             <p><strong>Total Number of Payments (n):</strong> <span id="total-payments-display"></span> months</p>
-            
+
             <h3>Formula to Calculate EMI:</h3>
-            <pre>
+            <div class="formula-container">
+                <p><strong>EMI Formula:</strong></p>
+                <p id="formula">
+                    <span class="formula-part">EMI</span> = <span class="formula-part">P</span> × <span class="formula-part">r</span> × <span class="formula-part">(1 + r)<sup>n</sup></span> / <span class="formula-part">(1 + r)<sup>n</sup> - 1</span>
+                </p>
+                <p><strong>Where:</strong></p>
+                <ul>
+                    <li><strong>P</strong> = ₹20,00,000 (Principal)</li>
+                    <li><strong>r</strong> = 0.0088333 (Monthly Interest Rate)</li>
+                    <li><strong>n</strong> = 24 months</li>
+                </ul>
+                <p><strong>Substituting Values:</strong></p>
+                <pre class="formula-syntax">
+EMI = ₹20,00,000 × 0.0088333 × (1 + 0.0088333)^24 / ((1 + 0.0088333)^24 - 1)
+                </pre>
+                <p><strong>Final EMI:</strong> ₹<span id="emi-display"></span></p>
+            </div>
+        </div>
+
+        <div id="calculation-summary" style="display:none;">
+            <h3>Loan Calculation Breakdown (2 Examples)</h3>
+
+            <!-- Loan 1 Calculation -->
+            <div id="loan-calculation-1">
+                <h4>Loan 1 Calculation</h4>
+                <p><strong>Loan Amount (Principal):</strong> ₹<span id="loan-amount-1"></span></p>
+                <p><strong>Annual Interest Rate:</strong> <span id="interest-rate-1"></span>%</p>
+                <p><strong>Loan Term:</strong> <span id="loan-term-1"></span> years</p>
+                <h4>EMI Calculation:</h4>
+                <p><strong>EMI ≈ ₹</strong><span id="emi-1"></span></p>
+                <p><strong>Formula:</strong></p>
+                <pre>
 EMI = P × r × (1 + r)^n / ((1 + r)^n - 1)
 Where:
-P = ₹20,00,000 (Principal)
-r = 0.0088333 (Monthly Interest Rate)
-n = 24 months
-            </pre>
-            <p><strong>EMI ≈ ₹</strong><span id="emi-display"></span></p>
+P = ₹<span id="loan-amount-1-detail"></span> (Principal)
+r = <span id="interest-rate-1-detail"></span> (Monthly Interest Rate)
+n = <span id="loan-term-1-detail"></span> months
+                </pre>
+                <p><strong>Substituting Values:</strong></p>
+                <pre>
+EMI = ₹<span id="loan-amount-1-detail"></span> × 0.0088333 × (1 + 0.0088333)^24 / ((1 + 0.0088333)^24 - 1)
+                </pre>
+                <p><strong>Final EMI:</strong> ₹<span id="emi-final-1"></span></p>
+            </div>
+
+            <div id="loan-calculation-2">
+                <h4>Loan 2 Calculation</h4>
+                <p><strong>Loan Amount (Principal):</strong> ₹<span id="loan-amount-2"></span></p>
+                <p><strong>Annual Interest Rate:</strong> <span id="interest-rate-2"></span>%</p>
+                <p><strong>Loan Term:</strong> <span id="loan-term-2"></span> years</p>
+                <h4>EMI Calculation:</h4>
+                <p><strong>EMI ≈ ₹</strong><span id="emi-2"></span></p>
+                <p><strong>Formula:</strong></p>
+                <pre>
+EMI = P × r × (1 + r)^n / ((1 + r)^n - 1)
+Where:
+P = ₹<span id="loan-amount-2-detail"></span> (Principal)
+r = <span id="interest-rate-2-detail"></span> (Monthly Interest Rate)
+n = <span id="loan-term-2-detail"></span> months
+                </pre>
+                <p><strong>Substituting Values:</strong></p>
+                <pre>
+EMI = ₹<span id="loan-amount-2-detail"></span> × 0.0088333 × (1 + 0.0088333)^24 / ((1 + 0.0088333)^24 - 1)
+                </pre>
+                <p><strong>Final EMI:</strong> ₹<span id="emi-final-2"></span></p>
+            </div>
         </div>
     </div>
 
